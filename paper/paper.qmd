@@ -1,221 +1,130 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
-author: 
-  - First author
-  - Another author
-thanks: "Code and data are available at: LINK."
-date: today
-date-format: long
-abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
+title: "An Analysis of Food Insecurity in Toronto"
+author: "Uma Sadhwani"
+date: "26 September 2024"
 format: pdf
-number-sections: true
 bibliography: references.bib
 ---
 
-```{r}
-#| include: false
-#| warning: false
-#| message: false
+## Abstract
 
-library(tidyverse)
-library(palmerpenguins)
-```
+This paper examines the relationship between household income, essential expenses, and food insecurity in Toronto. Using data from Open Data Toronto, we explore how different household types—ranging from single-parent families to minimum-wage earners—are impacted by the high costs of rent and food. Our findings suggest that households with lower incomes are disproportionately affected by these costs, making it difficult to maintain a basic standard of living. This study provides insights into the financial strains faced by vulnerable populations and emphasizes the need for targeted policy interventions to address housing affordability and food insecurity.
 
+## Introduction
 
-# Introduction
+Food insecurity has emerged as a pressing issue in Toronto, particularly affecting low-income families. According to a recent report, nearly 15.9% of Canadian households experience food insecurity, highlighting the widespread nature of this challenge across the country . The rising cost of living, particularly in urban centers like Toronto, exacerbates this issue. For instance, the average rent for a one-bedroom apartment in Toronto is approximately $2,572, and food prices have surged significantly, with basic grocery items experiencing inflation rates as high as 14% over the past year.
 
-You can and should cross-reference sections and sub-sections. We use @citeR and @rohan.
+This paper analyzes data from Open Data Toronto to explore how household characteristics—such as income, family structure, and expenses—contribute to food insecurity. By focusing on four distinct household scenarios, we aim to identify patterns of financial strain and assess the extent to which rent and food costs contribute to economic hardship. Recent statistics reveal that 45% of Canadians reported that rising prices greatly impacted their ability to meet daily expenses, with lower-income households facing the greatest challenges . Understanding these dynamics is crucial for developing targeted interventions to alleviate food insecurity in our communities.
 
-The remainder of this paper is structured as follows. @sec-data....
+## Data
+The data for this study comes from Open Data Toronto, focusing on critical household factors such as income, rent, and food expenses. With approximately 12% of Toronto's 2.1 million households experiencing some level of food insecurity, it is essential to understand how various household characteristics contribute to this issue. We examine four distinct household types to analyze their financial situations based on income and family structure: a family of four with a primary earner working minimum wage, a family of four with a median household income, a single-parent household with two children relying on Ontario Works, and a single-person household also dependent on Ontario Works.
 
+This analysis is particularly relevant given that nearly 70% of households on social assistance are food insecure, highlighting the vulnerability of low-income families in Toronto. By comparing the financial burdens faced by these households, we aim to uncover patterns of economic strain and the significant role that rent and food costs play in exacerbating food insecurity. Understanding these dynamics will provide valuable insights into the scale and causes of food insecurity across different demographics, informing potential policy interventions to alleviate this pressing social issue.
 
+## Key Insights
 
-# Data {#sec-data}
+### 1. Income vs. Expenses Disparity
 
-Some of our data is of penguins (@fig-bills), from @palmerpenguins.
+One of the most striking findings from this analysis is the significant disparity between income and essential expenses for low-income households. In several scenarios, household expenses far exceed the available income, putting these families in a constant state of financial deficit.
 
-```{r}
-#| label: fig-bills
-#| fig-cap: Bills of penguins
-#| echo: false
+- **Scenario 2 (Family of Four, Minimum Wage Earner)**: With a total income of **$4,192** and essential expenses totaling **$7,245**, this household faces a deficit of **-$3,053**. This gap illustrates the precarious financial situation faced by families relying on minimum-wage earnings. The minimum wage is insufficient to cover even the most basic living costs, such as housing, food, and transportation. This deficit not only results in immediate financial stress but also forces families to take on debt or forgo essential needs, further perpetuating the cycle of poverty.
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = "none") +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
+- **Scenario 4 (Single Parent Household with 2 Children on Ontario Works)**: In this scenario, the household's total income is **$2,588**, while expenses reach **$5,089**, resulting in a deficit of **-$2,501**. Single parents, especially those on social assistance, face disproportionate financial challenges. The cost of raising children, coupled with the inadequacy of social assistance payments, leaves these families in a dire financial situation, forcing them to choose between paying rent, buying food, or covering other necessities.
 
-Talk more about it.
+- **Scenario 5 (One-Person Household on Ontario Works)**: With an income of just **$877** and expenses of **$2,670**, this individual faces the highest deficit relative to their income, at **-$1,793**. The extreme disparity between income and expenses illustrates how impossible it is for individuals on Ontario Works to live independently without additional support. This scenario highlights the inadequacy of social assistance programs to provide even the most basic living conditions for single adults.
 
-And also planes (@fig-planes). (You can change the height and width, but don't worry about doing that until you have finished every other aspect of the paper - Quarto will try to make it look nice and the defaults usually work well once you have enough text.)
+In all three low-income scenarios, households experience severe deficits, which suggest that government assistance programs and minimum wage policies are not adequately addressing the real cost of living in Toronto. This financial imbalance directly impacts their ability to afford healthy food and maintain basic standards of living.
 
-```{r}
-#| label: fig-planes
-#| fig-cap: Relationship between wing length and width
-#| echo: false
-#| warning: false
-#| message: false
+### 2. Rent Burden
 
-analysis_data <- read_csv(here::here("data/analysis_data/analysis_data.csv"))
+Rent is the largest and most significant expense for all low-income households in this analysis. In several cases, rent alone exceeds the household’s total income, leaving no room for other essential expenses such as food, healthcare, and utilities.
 
-analysis_data |> 
-  ggplot(aes(x = width, y = length)) +
-  geom_point(alpha = 0.8) +
-  theme_minimal() +
-  labs(x = "Wing width (mm)",
-       y = "Wing length (mm)")
-```
+- **Scenario 2 (Family of Four, Minimum Wage Earner)**: For this family, rent consumes **109%** of their income, which means they have no income left for other expenses. The fact that rent exceeds total earnings suggests that families in this category are likely falling behind on rent, leading to the risk of eviction, homelessness, or being forced to move into inadequate or overcrowded housing. Such conditions can have cascading negative effects on physical and mental health, further straining the family’s resources.
 
-Talk way more about it. 
+- **Scenario 4 (Single Parent Household with 2 Children on Ontario Works)**: The rent burden in this scenario is **128%** of the household's total income. Single parents on Ontario Works are placed in an impossible situation where even with government assistance, they cannot meet their housing needs. This extreme rent burden limits the parent’s ability to provide for their children, both in terms of nutrition and education, potentially perpetuating cycles of poverty across generations.
 
+- **Scenario 5 (One-Person Household on Ontario Works)**: This individual’s rent consumes **239%** of their total income, representing the most extreme case of rent burden in the dataset. With rent taking up more than double the available income, this household is in severe financial distress, likely relying on charity, food banks, or unsafe housing alternatives to survive. This scenario demonstrates the urgent need for housing policies that address the needs of single adults on social assistance, who are among the most vulnerable in society.
 
+These findings emphasize the role of housing costs in contributing to food insecurity. As households spend more on rent, less is available for other basic necessities, including food.
 
-# Model
+### 3. Food Insecurity
 
-The goal of our modelling strategy is twofold. Firstly,...
+The percentage of income spent on food is another critical indicator of a household's financial health. Low-income families often spend a disproportionately high percentage of their income on food, leaving little room for savings or unexpected expenses.
 
-Here we briefly describe the Bayesian analysis model used to investigate... Background details and diagnostics are included in [Appendix -@sec-model-details].
+- **Scenario 2 (Family of Four, Minimum Wage Earner)**: This family spends **28%** of their income on healthy food. While this percentage may seem reasonable at first glance, when combined with the fact that rent consumes all of their income, it becomes clear that this household is unable to afford even basic nutrition. The inability to buy healthy food exacerbates long-term health problems and increases healthcare costs, which in turn places further strain on an already tight budget.
 
-## Model set-up
+- **Scenario 4 (Single Parent Household with 2 Children on Ontario Works)**: This household spends **33%** of its income on food, a significant portion given the family’s overall financial situation. The high food expenses mean that the parent is likely forced to make difficult trade-offs between feeding their children and paying for other necessities. This scenario highlights the need for food assistance programs that cater to single-parent households, who often face higher food costs due to the needs of growing children.
 
-Define $y_i$ as the number of seconds that the plane remained aloft. Then $\beta_i$ is the wing width and $\gamma_i$ is the wing length, both measured in millimeters.  
+- **Scenario 5 (One-Person Household on Ontario Works)**: With **48%** of income going towards healthy food, this individual is in the most precarious situation regarding food security. Nearly half of the individual’s income is spent on food, which, when combined with the rent burden, leaves no room for other essential expenses. This scenario underscores the need for tailored food assistance programs for single adults on social assistance, who often fall through the cracks of existing programs aimed at families.
 
-\begin{align} 
-y_i|\mu_i, \sigma &\sim \mbox{Normal}(\mu_i, \sigma) \\
-\mu_i &= \alpha + \beta_i + \gamma_i\\
-\alpha &\sim \mbox{Normal}(0, 2.5) \\
-\beta &\sim \mbox{Normal}(0, 2.5) \\
-\gamma &\sim \mbox{Normal}(0, 2.5) \\
-\sigma &\sim \mbox{Exponential}(1)
-\end{align}
+### 4. Median Income vs. Low-Income Comparison
 
-We run the model in R [@citeR] using the `rstanarm` package of @rstanarm. We use the default priors from `rstanarm`.
+- **Scenario 3 (Median Income Family)**: In stark contrast to the low-income households, this median-income family has a total income of **$9,284** and faces fewer financial challenges. With **49%** of income going towards rent and **13%** towards food, this family has **$2,039** left over after covering basic expenses. This financial cushion allows the household to cover unexpected expenses, save for the future, and invest in better quality food and housing. The difference between this family and the low-income households highlights the extent to which income levels determine a family’s ability to secure basic necessities.
 
+### Conclusion
 
-### Model justification
+This analysis of household scenarios in Toronto reveals the overwhelming financial challenges faced by low-income families and individuals, particularly in terms of rent burden and food insecurity. Rent costs, in many cases, exceed total income, forcing households into severe financial deficits. Food expenses further exacerbate this issue, leaving little to no room for other essential needs. These findings suggest that existing government assistance programs, including social assistance and minimum wage policies, are inadequate to address the cost of living in Toronto. Policy interventions, such as affordable housing initiatives and targeted food assistance programs, are urgently needed to support the city’s most vulnerable populations.
 
-We expect a positive relationship between the size of the wings and time spent aloft. In particular...
+## References
 
-We can use maths by including latex between dollar signs, for instance $\theta$.
+@article{george2024unaffordable,
+  author = {George, Chris},
+  title = {The Number One Issue for Canadians in 2024: The Unaffordable Cost of Living},
+  journal = {The Hamilton Independent},
+  year = {2024},
+  month = {January 12},
+  url = {https://hamiltonindependent.ca/the-number-one-issue-for-canadians-in-2024-the-unaffordable-cost-of-living/}
+}
 
+@article{gonzales2024rising,
+  author = {Gonzales, Freschia},
+  title = {Rising Prices Strain Canadians’ Finances, Impacting Quality of Life},
+  journal = {Wealth Professional},
+  year = {2024},
+  month = {August 19},
+  url = {https://www.wealthprofessional.ca/news/industry-news/rising-prices-strain-canadians-finances-impacting-quality-of-life/386751}
+}
 
-# Results
+@article{canada2024rising,
+  author = {Canada},
+  title = {The Daily — Nearly Half of Canadians Report That Rising Prices Are Greatly Impacting Their Ability to Meet Day-To-Day Expenses},
+  journal = {Statcan.gc.ca},
+  year = {2024},
+  url = {https://www150.statcan.gc.ca/n1/daily-quotidien/240815/dq240815b-eng.htm}
+}
 
-Our results are summarized in @tbl-modelresults.
+@article{varsity2023rising,
+  title = {Rising Costs and Student Struggles: The Reality of Living in Toronto},
+  journal = {The Varsity},
+  year = {2023},
+  month = {February 22},
+  url = {https://thevarsity.ca/2023/02/22/rising-costs-and-student-struggles-the-reality-of-living-in-toronto/}
+}
 
-```{r}
-#| echo: false
-#| eval: true
-#| warning: false
-#| message: false
-
-library(rstanarm)
-
-first_model <-
-  readRDS(file = here::here("models/first_model.rds"))
-```
-
-```{r}
-#| echo: false
-#| eval: true
-#| label: tbl-modelresults
-#| tbl-cap: "Explanatory models of flight time based on wing width and wing length"
-#| warning: false
-
-modelsummary::modelsummary(
-  list(
-    "First model" = first_model
-  ),
-  statistic = "mad",
-  fmt = 2
-)
-```
-
-
-
-
-# Discussion
-
-## First discussion point {#sec-first-point}
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
-
-\newpage
-
-\appendix
-
-# Appendix {-}
-
-
-# Additional data details
-
-# Model details {#sec-model-details}
-
-## Posterior predictive check
-
-In @fig-ppcheckandposteriorvsprior-1 we implement a posterior predictive check. This shows...
-
-In @fig-ppcheckandposteriorvsprior-2 we compare the posterior with the prior. This shows... 
-
-```{r}
-#| eval: true
-#| echo: false
-#| message: false
-#| warning: false
-#| label: fig-ppcheckandposteriorvsprior
-#| layout-ncol: 2
-#| fig-cap: "Examining how the model fits, and is affected by, the data"
-#| fig-subcap: ["Posterior prediction check", "Comparing the posterior with the prior"]
-
-pp_check(first_model) +
-  theme_classic() +
-  theme(legend.position = "bottom")
-
-posterior_vs_prior(first_model) +
-  theme_minimal() +
-  scale_color_brewer(palette = "Set1") +
-  theme(legend.position = "bottom") +
-  coord_flip()
-```
-
-## Diagnostics
-
-@fig-stanareyouokay-1 is a trace plot. It shows... This suggests...
-
-@fig-stanareyouokay-2 is a Rhat plot. It shows... This suggests...
-
-```{r}
-#| echo: false
-#| eval: true
-#| message: false
-#| warning: false
-#| label: fig-stanareyouokay
-#| fig-cap: "Checking the convergence of the MCMC algorithm"
-#| fig-subcap: ["Trace plot", "Rhat plot"]
-#| layout-ncol: 2
-
-plot(first_model, "trace")
-
-plot(first_model, "rhat")
-```
-
-
-
-\newpage
-
-
-# References
-
-
+@article{coleman2018foodreach,
+  author = {Coleman, Paul and Gultig, John and Emanuel, Barbara and Gee, Marianne and Orpana, Heather},
+  title = {Status Report - FoodReach Toronto: Lowering Food Costs for Social Agencies and Community Groups},
+  journal = {Health Promotion and Chronic Disease Prevention in Canada},
+  volume = {38},
+  number = {1},
+  pages = {23--28},
+  year = {2018},
+  doi = {10.24095/hpcdp.38.1.05},
+  url = {https://doi.org/10.24095/hpcdp.38.1.05}
+}
+
+@misc{odph2022centsless,
+  title = {No Money for Food Is...Cent\$Less},
+  year = {2022},
+  howpublished = {Odph.ca},
+  url = {https://www.odph.ca/centsless}
+}
+
+@misc{proof2023foodinsecurity,
+  author = {PROOF Administrator and PROOF Administrator},
+  title = {Food Insecurity in Canada Is the Worst It’s Ever Been — Here’s How We Can Solve It},
+  year = {2023},
+  month = {November 19},
+  howpublished = {PROOF},
+  url = {https://proof.utoronto.ca/2023/food-insecurity-in-canada-is-the-worst-its-ever-been-heres-how-we-can-solve-it/}
+}
