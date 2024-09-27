@@ -4,6 +4,10 @@ author: "Uma Sadhwani"
 date: "26 September 2024"
 format: pdf
 bibliography: references.bib
+execute:
+  echo: false    # Hide code in output
+  message: false # Suppress messages
+  warning: false # Suppress warnings
 ---
 
 ## Abstract
@@ -12,14 +16,50 @@ This paper examines the relationship between household income, essential expense
 
 ## Introduction
 
-Food insecurity has emerged as a pressing issue in Toronto, particularly affecting low-income families. According to a recent report, nearly 15.9% of Canadian households experience food insecurity, highlighting the widespread nature of this challenge across the country . The rising cost of living, particularly in urban centers like Toronto, exacerbates this issue. For instance, the average rent for a one-bedroom apartment in Toronto is approximately $2,572, and food prices have surged significantly, with basic grocery items experiencing inflation rates as high as 14% over the past year.
+Food insecurity has emerged as a pressing issue in Toronto, particularly affecting low-income families. According to a recent report, nearly 15.9% of Canadian households experience food insecurity, highlighting the widespread nature of this challenge across the country. The rising cost of living, particularly in urban centers like Toronto, exacerbates this issue. For instance, the average rent for a one-bedroom apartment in Toronto is approximately $2,572, and food prices have surged significantly, with basic grocery items experiencing inflation rates as high as 14% over the past year.
 
-This paper analyzes data from Open Data Toronto to explore how household characteristics—such as income, family structure, and expenses—contribute to food insecurity. By focusing on four distinct household scenarios, we aim to identify patterns of financial strain and assess the extent to which rent and food costs contribute to economic hardship. Recent statistics reveal that 45% of Canadians reported that rising prices greatly impacted their ability to meet daily expenses, with lower-income households facing the greatest challenges . Understanding these dynamics is crucial for developing targeted interventions to alleviate food insecurity in our communities.
+This paper analyzes data from Open Data Toronto to explore how household characteristics—such as income, family structure, and expenses—contribute to food insecurity. By focusing on four distinct household scenarios, we aim to identify patterns of financial strain and assess the extent to which rent and food costs contribute to economic hardship. Recent statistics reveal that 45% of Canadians reported that rising prices greatly impacted their ability to meet daily expenses, with lower-income households facing the greatest challenges. Understanding these dynamics is crucial for developing targeted interventions to alleviate food insecurity in our communities.
 
 ## Data
+
 The data for this study comes from Open Data Toronto, focusing on critical household factors such as income, rent, and food expenses. With approximately 12% of Toronto's 2.1 million households experiencing some level of food insecurity, it is essential to understand how various household characteristics contribute to this issue. We examine four distinct household types to analyze their financial situations based on income and family structure: a family of four with a primary earner working minimum wage, a family of four with a median household income, a single-parent household with two children relying on Ontario Works, and a single-person household also dependent on Ontario Works.
 
 This analysis is particularly relevant given that nearly 70% of households on social assistance are food insecure, highlighting the vulnerability of low-income families in Toronto. By comparing the financial burdens faced by these households, we aim to uncover patterns of economic strain and the significant role that rent and food costs play in exacerbating food insecurity. Understanding these dynamics will provide valuable insights into the scale and causes of food insecurity across different demographics, informing potential policy interventions to alleviate this pressing social issue.
+
+```{r}
+# Simulating a portion of the dataset for illustration purposes
+library(tidyverse)
+library(gt)
+library(ggplot2)
+# Or load tibble directly
+library(tibble)
+data <- tibble(
+  Scenario = c("Family of Four, Min. Wage", "Family of Four, Median Income", 
+               "Single Parent, Ontario Works", "One-Person, Ontario Works"),
+  Income = c(4192, 9284, 2588, 877),
+  Expenses = c(7245, 7245, 5089, 2670),
+  Rent_Percent = c(109, 49, 128, 239),
+  Food_Percent = c(28, 13, 33, 48)
+)
+
+# Displaying the data using gt
+data %>%
+  gt() %>%
+  tab_header(
+    title = "Household Income and Expenses",
+    subtitle = "Toronto Household Scenarios"
+  ) %>%
+  fmt_currency(columns = c(Income, Expenses), currency = "USD") %>%
+  cols_label(
+    Scenario = "Household Scenario",
+    Income = "Total Income ($)",
+    Expenses = "Total Expenses ($)",
+    Rent_Percent = "Rent as % of Income",
+    Food_Percent = "Food as % of Income"
+  )
+```
+
+Table 1 shows the income and essential expenses for each household scenario. As shown, households with lower incomes, especially those on Ontario Works, experience significant financial deficits, with expenses far exceeding income.
 
 ## Key Insights
 
@@ -35,6 +75,23 @@ One of the most striking findings from this analysis is the significant disparit
 
 In all three low-income scenarios, households experience severe deficits, which suggest that government assistance programs and minimum wage policies are not adequately addressing the real cost of living in Toronto. This financial imbalance directly impacts their ability to afford healthy food and maintain basic standards of living.
 
+```{r}
+ggplot(data) +
+  geom_col(aes(x = Scenario, y = Expenses, fill = "Expenses"), position = "identity", color = "black") +
+  geom_col(aes(x = Scenario, y = Income, fill = "Income"), position = "identity", color = "black") +
+  scale_fill_manual(name = "Legend", values = c("Income" = "lightblue", "Expenses" = "lightcoral")) +
+  theme_minimal() +
+  labs(
+    title = "Income vs. Expenses by Household Scenario",
+    x = "Household Scenario",
+    y = "Amount ($)"
+  ) +
+  geom_text(aes(x = Scenario, y = Income + 200, label = Income), size = 3, color = "black") +
+  geom_text(aes(x = Scenario, y = Expenses + 200, label = Expenses), size = 3, color = "black") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotates the x-axis labels
+```
+Figure 1 highlights the stark difference between income and expenses, particularly for the lowest-income households. For instance, in the One-Person Household on Ontario Works scenario, expenses are nearly three times the income, illustrating the severe financial strain faced by this demographic.
+
 ### 2. Rent Burden
 
 Rent is the largest and most significant expense for all low-income households in this analysis. In several cases, rent alone exceeds the household’s total income, leaving no room for other essential expenses such as food, healthcare, and utilities.
@@ -46,6 +103,26 @@ Rent is the largest and most significant expense for all low-income households i
 - **Scenario 5 (One-Person Household on Ontario Works)**: This individual’s rent consumes **239%** of their total income, representing the most extreme case of rent burden in the dataset. With rent taking up more than double the available income, this household is in severe financial distress, likely relying on charity, food banks, or unsafe housing alternatives to survive. This scenario demonstrates the urgent need for housing policies that address the needs of single adults on social assistance, who are among the most vulnerable in society.
 
 These findings emphasize the role of housing costs in contributing to food insecurity. As households spend more on rent, less is available for other basic necessities, including food.
+
+```{r}
+# Create the data_long object by pivoting the data tibble
+data_long <- data %>%
+  pivot_longer(cols = c(Rent_Percent, Food_Percent), names_to = "Expense_Type", values_to = "Percent")
+
+# Now use data_long in the plot
+ggplot(data_long, aes(x = Scenario, y = Percent, fill = Expense_Type)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(name = "Expense Type", values = c("Rent_Percent" = "lightcoral", "Food_Percent" = "lightblue")) +
+  theme_minimal() +
+  labs(
+    title = "Rent and Food Costs as Percentage of Income",
+    x = "Household Scenario",
+    y = "Percentage of Income (%)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate labels to prevent overlap
+```
+
+Figure 2 illustrates the substantial burden that rent and food costs impose on these households, especially those receiving social assistance. For example, One-Person Household on Ontario Works spends more than double their total income on rent alone, leaving almost nothing for food or other essential expenses.
 
 ### 3. Food Insecurity
 
